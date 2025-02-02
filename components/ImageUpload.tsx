@@ -6,11 +6,11 @@ import config from '@/lib/config';
 import Image from 'next/image';
 import { toast } from "@/hooks/use-toast";
 
-const {env: {apiEndPoint,imagekit: {publicKey,urlEndPoint} } }=config;
+const {env: {imagekit: {publicKey,urlEndPoint} } }=config;
 
 const authenticator = async () => {
   try {
-    const response = await fetch("http://localhost:3000/api/auth/imagekit");
+    const response = await fetch(`${config.env.prodEndPoint}/api/auth/imagekit`);
 
     if (!response.ok) {
       const errorText = await response.text();
