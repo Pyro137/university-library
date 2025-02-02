@@ -12,7 +12,7 @@ const variantStyles: Record<BookCoverVariant, string> = {
     medium: "book-cover_medium",
     regular: "book-cover_regular",
     wide: "book-cover_wide",
-  };
+  }; 
 interface Props{
     className?: string
     variant?:BookCoverVariant
