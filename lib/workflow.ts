@@ -1,33 +1,35 @@
 import { Client as WorkflowClient } from "@upstash/workflow";
-import nodemailer from 'nodemailer';
-import config from "@/lib/config"
+import { Client as QStashClient, resend } from "@upstash/qstash";
+import config from "@/lib/config";
 
 export const workflowClient = new WorkflowClient({
-    baseUrl: config.env.upstash.qstashUrl,
-    token: config.env.upstash.qstashToken,
-  });
+  baseUrl: config.env.upstash.qstashUrl,
+  token: config.env.upstash.qstashToken,
+});
 
+const qstashClient = new QStashClient({
+  token: config.env.upstash.qstashToken,
+});
 
-
-export const sendEmail = async({to_email,subject,text}:{to_email:string,subject:string,text:string}) =>{    
-    const transporter = nodemailer.createTransport({
-    host: 'smtp.forwardemail.net',
-    port: 465,
-    secure: true,
-    auth: {
-        user: 'metinisikcan@gmail.com',
-        pass: 'pyrometin012345',
+export const sendEmail = async ({
+  email,
+  subject,
+  message,
+}: {
+  email: string;
+  subject: string;
+  message: string;
+}) => {
+  await qstashClient.publishJSON({
+    api: {
+      name: "email",
+      provider: resend({ token: config.env.resendToken }),
     },
-    });
-
-
-
-    const options = {
-    from: 'metinisikcan@gmail.com',
-    to: to_email,
-    subject: subject,
-    text:text
-
-    };
-
-    await transporter.sendMail(options);}
+    body: {
+      from: "JS Mastery <contact@adrianjsmastery.com>",
+      to: [email],
+      subject,
+      html: message,
+    },
+  });
+};
