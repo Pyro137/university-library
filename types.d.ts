@@ -21,3 +21,17 @@ interface AuthCredentials{
   universityId:number,
   universityCard:string,
 }
+interface BookParams {
+  title: string;
+  author: string;
+  genre: string;
+  rating: number;
+  coverUrl: string;
+  description: string;
+  totalCopies: number;
+  summary: string;
+}
+interface BorrowBookParams {
+  bookId: string;
+  userId: string;
+}
