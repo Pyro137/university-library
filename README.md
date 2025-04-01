@@ -1,5 +1,5 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
+You see deployed version of project "https://university-library-nine-phi.vercel.app/sign-in" with this link.
+for admin side you should login first. and visit "https://university-library-nine-phi.vercel.app/admin"
 ## Getting Started
 
 First, run the development server:
